@@ -17,32 +17,5 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.dependencycheck.ui;
+@javax.annotation.ParametersAreNonnullByDefault package org.sonar.zaproxy.parser.element;
 
-import org.sonar.api.web.AbstractRubyTemplate;
-import org.sonar.api.web.RubyRailsWidget;
-import org.sonar.api.web.WidgetProperties;
-import org.sonar.api.web.WidgetProperty;
-import org.sonar.api.web.WidgetPropertyType;
-
-@WidgetProperties({
-		@WidgetProperty(key = "enableReportLink", type = WidgetPropertyType.BOOLEAN, defaultValue = "true")
-})
-public class DependencyCheckWidget extends AbstractRubyTemplate implements RubyRailsWidget {
-
-	@Override
-	public String getId() {
-		return "dependencycheck";
-	}
-
-	@Override
-	public String getTitle() {
-		return "Known Vulnerabilities in Dependencies";
-	}
-
-	@Override
-	protected String getTemplatePath() {
-		return "/org/sonar/dependencycheck/ui/widget.html.erb";
-	}
-
-}

@@ -17,27 +17,4 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.dependencycheck.rule;
-
-import org.sonar.api.resources.AbstractLanguage;
-import org.sonar.dependencycheck.DependencyCheckPlugin;
-
-/**
- * In order for a rule repository to work properly, the rules created in the repository
- * must be associated with a language. This is a workaround so that rules that apply to
- * third-party components where the language is not known (or irrelevant) can be used to
- * flag those components as vulnerable.
- *
- * This class simply creates a new 'language' called neutral.
- */
-public class NeutralLanguage extends AbstractLanguage {
-
-    public NeutralLanguage() {
-        super(DependencyCheckPlugin.LANGUAGE_KEY, "Neutral");
-    }
-
-    public String[] getFileSuffixes() {
-        return new String[0];
-    }
-
-}
+@javax.annotation.ParametersAreNonnullByDefault package org.sonar.commons;

@@ -17,32 +17,32 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.dependencycheck.ui;
+package org.sonar.zaproxy;
 
-import org.sonar.api.web.AbstractRubyTemplate;
-import org.sonar.api.web.RubyRailsWidget;
-import org.sonar.api.web.WidgetProperties;
-import org.sonar.api.web.WidgetProperty;
-import org.sonar.api.web.WidgetPropertyType;
+import org.apache.commons.lang.StringUtils;
+import org.sonar.api.BatchExtension;
+import org.sonar.api.config.Settings;
+import org.sonar.api.profiles.RulesProfile;
+import org.sonar.commons.CommonsConfiguration;
+import org.sonar.zaproxy.base.ZaproxyConstants;
 
-@WidgetProperties({
-		@WidgetProperty(key = "enableReportLink", type = WidgetPropertyType.BOOLEAN, defaultValue = "true")
-})
-public class DependencyCheckWidget extends AbstractRubyTemplate implements RubyRailsWidget {
+public class ZaproxySensorConfiguration implements BatchExtension, CommonsConfiguration {
+	
+	private final RulesProfile profile;
+	private final Settings settings;
 
-	@Override
-	public String getId() {
-		return "dependencycheck";
+	public ZaproxySensorConfiguration(RulesProfile profile, Settings settings) {
+		this.profile = profile;
+		this.settings = settings;
 	}
 
 	@Override
-	public String getTitle() {
-		return "Known Vulnerabilities in Dependencies";
-	}
-
-	@Override
-	protected String getTemplatePath() {
-		return "/org/sonar/dependencycheck/ui/widget.html.erb";
+	public String getReportPath() {
+		String reportPath = this.settings.getString(ZaproxyConstants.REPORT_PATH_PROPERTY);
+		if (StringUtils.isBlank(reportPath)) {
+			reportPath = "zaproxy-report.xml"; // Setting not specified. Use default filename.
+		}
+		return reportPath;
 	}
 
 }

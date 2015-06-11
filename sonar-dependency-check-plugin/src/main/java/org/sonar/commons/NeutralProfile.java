@@ -17,32 +17,26 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.dependencycheck.ui;
+package org.sonar.commons;
 
-import org.sonar.api.web.AbstractRubyTemplate;
-import org.sonar.api.web.RubyRailsWidget;
-import org.sonar.api.web.WidgetProperties;
-import org.sonar.api.web.WidgetProperty;
-import org.sonar.api.web.WidgetPropertyType;
+import org.sonar.api.profiles.ProfileDefinition;
+import org.sonar.api.profiles.RulesProfile;
+import org.sonar.api.profiles.XMLProfileParser;
+import org.sonar.api.utils.ValidationMessages;
 
-@WidgetProperties({
-		@WidgetProperty(key = "enableReportLink", type = WidgetPropertyType.BOOLEAN, defaultValue = "true")
-})
-public class DependencyCheckWidget extends AbstractRubyTemplate implements RubyRailsWidget {
+import java.io.InputStreamReader;
 
-	@Override
-	public String getId() {
-		return "dependencycheck";
-	}
+public class NeutralProfile extends ProfileDefinition {
 
-	@Override
-	public String getTitle() {
-		return "Known Vulnerabilities in Dependencies";
-	}
+    private final XMLProfileParser xmlParser;
 
-	@Override
-	protected String getTemplatePath() {
-		return "/org/sonar/dependencycheck/ui/widget.html.erb";
-	}
+    public NeutralProfile(XMLProfileParser xmlParser) {
+        this.xmlParser = xmlParser;
+    }
+
+    @Override
+    public RulesProfile createProfile(ValidationMessages validation) {
+        return xmlParser.parse(new InputStreamReader(getClass().getResourceAsStream("/org/sonar/dependencycheck/profile.xml")), validation);
+    }
 
 }

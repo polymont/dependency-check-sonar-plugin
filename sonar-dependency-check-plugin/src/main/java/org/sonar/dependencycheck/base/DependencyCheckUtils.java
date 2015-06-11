@@ -19,35 +19,22 @@
  */
 package org.sonar.dependencycheck.base;
 
-import org.codehaus.staxmate.SMInputFactory;
 import org.sonar.api.rule.Severity;
-
-import javax.xml.stream.FactoryConfigurationError;
-import javax.xml.stream.XMLInputFactory;
 
 public final class DependencyCheckUtils {
 
-    private DependencyCheckUtils() {
-    }
+	private DependencyCheckUtils() {
+	}
 
-    public static SMInputFactory newStaxParser() throws FactoryConfigurationError {
-        XMLInputFactory xmlFactory = XMLInputFactory.newInstance();
-        xmlFactory.setProperty(XMLInputFactory.IS_COALESCING, Boolean.TRUE);
-        xmlFactory.setProperty(XMLInputFactory.IS_NAMESPACE_AWARE, Boolean.FALSE);
-        xmlFactory.setProperty(XMLInputFactory.SUPPORT_DTD, Boolean.FALSE);
-        xmlFactory.setProperty(XMLInputFactory.IS_VALIDATING, Boolean.FALSE);
-        return new SMInputFactory(xmlFactory);
-    }
-
-    public static String cvssToSonarQubeSeverity(String cvssScore) {
-        double score = Double.parseDouble(cvssScore);
-        if (score >= 7.0) {
-            return Severity.CRITICAL;
-        } else if (score >= 4.0) {
-            return Severity.MAJOR;
-        } else {
-            return Severity.MINOR;
-        }
-    }
+	public static String cvssToSonarQubeSeverity(String cvssScore) {
+		double score = Double.parseDouble(cvssScore);
+		if (score >= 7.0) {
+			return Severity.CRITICAL;
+		} else if (score >= 4.0) {
+			return Severity.MAJOR;
+		} else {
+			return Severity.MINOR;
+		}
+	}
 
 }

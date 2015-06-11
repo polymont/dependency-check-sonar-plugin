@@ -17,26 +17,38 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.dependencycheck.rule;
+package org.sonar.zaproxy.parser.element;
 
-import org.sonar.api.profiles.ProfileDefinition;
-import org.sonar.api.profiles.RulesProfile;
-import org.sonar.api.profiles.XMLProfileParser;
-import org.sonar.api.utils.ValidationMessages;
+public class OWASPZAPReport {
 
-import java.io.InputStreamReader;
-
-public class NeutralProfile extends ProfileDefinition {
-
-    private final XMLProfileParser xmlParser;
-
-    public NeutralProfile(XMLProfileParser xmlParser) {
-        this.xmlParser = xmlParser;
-    }
-
-    @Override
-    public RulesProfile createProfile(ValidationMessages validation) {
-        return xmlParser.parse(new InputStreamReader(getClass().getResourceAsStream("/org/sonar/dependencycheck/profile.xml")), validation);
-    }
+	private String generated;
+	private String versionZAP;
+	private Site site;
+	
+	public OWASPZAPReport(String generated, String versionZAP, Site site) {
+		this.generated = generated;
+		this.versionZAP = versionZAP;
+		this.site = site;
+	}
+	
+	public String getGenerated() {
+		return generated;
+	}
+	
+	public String getVersionZAP() {
+		return versionZAP;
+	}
+	
+	public Site getSite() {
+		return site;
+	}
+	
+	public String toString() {
+		String s = "";
+		s += "generated : [" + generated + "]\n";
+		s += "versionZAP : [" + versionZAP + "]\n";
+		s += "site : [" + site + "]\n";
+		return s;
+	}
 
 }

@@ -21,9 +21,10 @@ package org.sonar.dependencycheck.base;
 
 public final class DependencyCheckConstants {
 
-    public static final String REPORT_PATH_PROPERTY = "sonar.dependencyCheck.reportPath";
+	public static final String REPORT_PATH_PROPERTY = "sonar.dependencyCheck.reportPath";
+	public static final String TOOL_NAME = "Dependency-Check";
 
-    private DependencyCheckConstants() {
-    }
+	private DependencyCheckConstants() {
+	}
 
 }

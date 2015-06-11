@@ -17,30 +17,39 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.dependencycheck.parser;
+package org.sonar.commons;
 
-// TODO delete this class
 import org.apache.commons.lang.StringUtils;
 import org.sonar.api.batch.fs.FileSystem;
 import org.sonar.api.utils.MessageException;
-import org.sonar.dependencycheck.DependencyCheckSensorConfiguration;
-import org.sonar.dependencycheck.base.DependencyCheckConstants;
 
 import javax.annotation.CheckForNull;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
-public class XmlReportFile {
-	private final DependencyCheckSensorConfiguration configuration;
+/**
+ * Functionalities to get the XML file corresponding to the used tool's report. 
+ * 
+ * @author ludovic.roucoux
+ *
+ */
+public class XmlGlobalReportFile {
+	private final CommonsConfiguration configuration;
 	private final FileSystem fileSystem;
 
 	private File report;
+	private final String toolName;
+	private final String reportPathProperty;
 
-	public XmlReportFile(DependencyCheckSensorConfiguration configuration, FileSystem fileSystem) {
+	public XmlGlobalReportFile(CommonsConfiguration configuration, FileSystem fileSystem,
+			String toolName, String reportPathProperty) {
 		this.configuration = configuration;
 		this.fileSystem = fileSystem;
+		this.toolName = toolName;
+		this.reportPathProperty = reportPathProperty;
 	}
 
 	/**
@@ -49,7 +58,7 @@ public class XmlReportFile {
 	 * @throws org.sonar.api.utils.MessageException if the property relates to a directory or a non-existing file.
 	 */
 	@CheckForNull
-	private File getReportFromProperty() {
+	protected File getReportFromProperty() {
 		String path = this.configuration.getReportPath();
 		if (StringUtils.isNotBlank(path)) {
 			this.report = new File(path);
@@ -59,8 +68,8 @@ public class XmlReportFile {
 			if (report.exists() && report.isFile()) {
 				return report;
 			}
-			throw MessageException.of("Dependency-Check report does not exist. Please check property " +
-					DependencyCheckConstants.REPORT_PATH_PROPERTY + ": " + path);
+			throw MessageException.of(toolName + " report does not exist. Please check property " +
+					reportPathProperty + ": " + path);
 		}
 		return null;
 	}
@@ -75,7 +84,7 @@ public class XmlReportFile {
 	public InputStream getInputStream() throws FileNotFoundException {
 		File reportFile = getFile();
 		if (reportFile == null) {
-			throw new FileNotFoundException("Dependency-Check report does not exist.");
+			throw new FileNotFoundException(toolName + " report does not exist.");
 		}
 		return new FileInputStream(reportFile);
 	}

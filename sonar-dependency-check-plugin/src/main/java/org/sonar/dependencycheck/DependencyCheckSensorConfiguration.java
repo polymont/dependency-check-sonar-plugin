@@ -19,6 +19,8 @@
  */
 package org.sonar.dependencycheck;
 
+import org.sonar.commons.CommonsConfiguration;
+
 import org.apache.commons.lang.StringUtils;
 import org.sonar.api.BatchExtension;
 import org.sonar.api.config.Settings;
@@ -26,22 +28,22 @@ import org.sonar.api.profiles.RulesProfile;
 import org.sonar.dependencycheck.base.DependencyCheckConstants;
 
 
-public class DependencyCheckSensorConfiguration implements BatchExtension {
+public class DependencyCheckSensorConfiguration implements BatchExtension, CommonsConfiguration {
 
-    private final RulesProfile profile;
-    private final Settings settings;
+	private final RulesProfile profile;
+	private final Settings settings;
 
-    public DependencyCheckSensorConfiguration(RulesProfile profile, Settings settings) {
-        this.profile = profile;
-        this.settings = settings;
-    }
+	public DependencyCheckSensorConfiguration(RulesProfile profile, Settings settings) {
+		this.profile = profile;
+		this.settings = settings;
+	}
 
-    public String getReportPath() {
-        String reportPath = this.settings.getString(DependencyCheckConstants.REPORT_PATH_PROPERTY);
-        if (StringUtils.isBlank(reportPath)) {
-            reportPath = "dependency-check-report.xml"; // Setting not specified. Use default filename.
-        }
-        return reportPath;
-    }
+	public String getReportPath() {
+		String reportPath = this.settings.getString(DependencyCheckConstants.REPORT_PATH_PROPERTY);
+		if (StringUtils.isBlank(reportPath)) {
+			reportPath = "dependency-check-report.xml"; // Setting not specified. Use default filename.
+		}
+		return reportPath;
+	}
 
 }

@@ -1,0 +1,89 @@
+<!-- TODO this file should be automatically generated with the ZAProxy report -->
+<rules>
+		<rule>
+				<!-- required fields -->
+				<key>10010</key>
+				<name>Cookie set without HttpOnly flag</name>
+				
+				<!-- optional fields -->
+				<description> <!-- Corresponding to "<solution>" and "<reference>" of the ZAP report -->
+<![CDATA[Solution : Ensure that the HttpOnly flag is set for all cookies.]]>
+				</description>
+				<severity>MINOR</severity>
+				<status>READY</status>
+				<tag>wascid-13</tag>
+				<tag>security</tag>
+				<tag>zaproxy</tag>
+		</rule>
+		<rule>
+				<key>10012</key>
+				<name>Password Autocomplete in browser</name>
+				<description>
+<![CDATA[Solution : Turn off AUTOCOMPLETE attribute in form or individual input elements containing password by using AUTOCOMPLETE='OFF']]>
+				</description>
+				<severity>MINOR</severity>
+				<status>READY</status>
+				<tag>cweid-525</tag>
+				<tag>security</tag>
+				<tag>zaproxy</tag>
+		</rule>
+		<rule>
+				<key>10016</key>
+				<name>Web Browser XSS Protection Not Enabled</name>
+				<description>
+<![CDATA[Solution : Web Browser XSS Protection is not enabled, or is disabled by the configuration of the 'X-XSS-Protection' HTTP response header on the web server.]]>
+				</description>
+				<severity>MINOR</severity>
+				<status>READY</status>
+				<tag>wascid-14</tag>
+				<tag>security</tag>
+				<tag>zaproxy</tag>
+		</rule>
+		<rule>
+				<key>10020</key>
+				<name>En-tête X-Frame-Options pas renseigné</name>
+				<description>
+<![CDATA[Solution : La plupart des navigateurs internet modernes supportent l'en-tête HTTP X-Frame-Options. Assurez-vous que celle-ci est renseignée sur toutes les pages internet retournées par votre site (si cette page ne doit être encadrée que par des pages de votre serveur (p.ex. fait partie d'un FRAMESET), alors utilisez la valeur SAMEORIGIN, sinon choisissez la valeur DENY quand la page n'est jamais encadrée. ALLOW-FROM permet à des sites spécifiques d'encadrer la page, pour autant que le navigateur le supporte).]]>
+				</description>
+				<severity>MAJOR</severity>
+				<status>READY</status>
+				<tag>security</tag>
+				<tag>zaproxy</tag>
+		</rule>
+		<rule>
+				<key>10021</key>
+				<name>En-tête X-Content-Type-Options manquant</name>
+				<description>
+<![CDATA[Solution : L'en-tête X-Content-Type-Options contre le sniffing MIME n'est pas renseigné à 'nosniff'. Ceci permet à de vielles versions d'Internet Explorer et de Chrome de pratiquer le sniffing MIME sur le corps de réponse, conduisant potentiellement à l'interprétation et l'affichage du contenu dans un autre type que celui déclaré. A l'heure actuelle (début 2014), les anciennes versions de Firefox utiliseront le type de contenu déclaré (au cas où un type est déterminé), plutôt qu'analyser le MIME.]]>
+				</description>
+				<severity>MINOR</severity>
+				<status>READY</status>
+				<tag>wascid-15</tag>
+				<tag>security</tag>
+				<tag>zaproxy</tag>
+		</rule>
+		<rule>
+				<key>40018</key>
+				<name>Injection SQL</name>
+				<description>
+<![CDATA[<h3>Solution :</h3> Une injection SQL peut être possible.]]>
+				</description>
+				<severity>CRITICAL</severity>
+				<status>READY</status>
+				<tag>wascid-19</tag>
+				<tag>security</tag>
+				<tag>zaproxy</tag>
+		</rule>
+		<rule>
+				<key>90022</key>
+				<name>Application Error Disclosure</name>
+				<description>
+<![CDATA[Solution : Review the source code of this page. Implement custom error pages. Consider implementing a mechanism to provide a unique error reference/identifier to the client (browser) while logging the details on the server side and not exposing them to the user.]]>
+				</description>
+				<severity>MAJOR</severity>
+				<status>READY</status>
+				<tag>wascid-13</tag>
+				<tag>security</tag>
+				<tag>zaproxy</tag>
+		</rule>
+</rules>

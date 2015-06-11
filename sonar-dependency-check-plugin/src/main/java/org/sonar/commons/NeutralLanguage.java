@@ -17,32 +17,26 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.dependencycheck.ui;
+package org.sonar.commons;
 
-import org.sonar.api.web.AbstractRubyTemplate;
-import org.sonar.api.web.RubyRailsWidget;
-import org.sonar.api.web.WidgetProperties;
-import org.sonar.api.web.WidgetProperty;
-import org.sonar.api.web.WidgetPropertyType;
+import org.sonar.api.resources.AbstractLanguage;
 
-@WidgetProperties({
-		@WidgetProperty(key = "enableReportLink", type = WidgetPropertyType.BOOLEAN, defaultValue = "true")
-})
-public class DependencyCheckWidget extends AbstractRubyTemplate implements RubyRailsWidget {
+/**
+ * In order for a rule repository to work properly, the rules created in the repository
+ * must be associated with a language. This is a workaround so that rules that apply to
+ * third-party components where the language is not known (or irrelevant) can be used to
+ * flag those components as vulnerable.
+ *
+ * This class simply creates a new 'language' called neutral.
+ */
+public class NeutralLanguage extends AbstractLanguage {
 
-	@Override
-	public String getId() {
-		return "dependencycheck";
+	public NeutralLanguage() {
+		super(OwaspPlugin.LANGUAGE_KEY, "Neutral");
 	}
 
-	@Override
-	public String getTitle() {
-		return "Known Vulnerabilities in Dependencies";
-	}
-
-	@Override
-	protected String getTemplatePath() {
-		return "/org/sonar/dependencycheck/ui/widget.html.erb";
+	public String[] getFileSuffixes() {
+		return new String[0];
 	}
 
 }

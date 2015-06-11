@@ -17,17 +17,14 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.dependencycheck;
+package org.sonar.zaproxy.base;
 
-import org.junit.Test;
+public final class ZaproxyConstants {
 
-import static org.fest.assertions.Assertions.assertThat;
+	public static final String REPORT_PATH_PROPERTY = "sonar.zaproxy.reportPath";
+	public static final String TOOL_NAME = "ZAProxy";
 
-public class DependencyCheckPluginTest {
-
-    @Test
-    public void test_extensions() {
-        assertThat(new DependencyCheckPlugin().getExtensions()).isNotEmpty();
-    }
-
+	private ZaproxyConstants() {
+	}
+	
 }

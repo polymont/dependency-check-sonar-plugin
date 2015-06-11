@@ -17,32 +17,25 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.dependencycheck.ui;
+package org.sonar.commons;
 
-import org.sonar.api.web.AbstractRubyTemplate;
-import org.sonar.api.web.RubyRailsWidget;
-import org.sonar.api.web.WidgetProperties;
-import org.sonar.api.web.WidgetProperty;
-import org.sonar.api.web.WidgetPropertyType;
+import org.codehaus.staxmate.SMInputFactory;
 
-@WidgetProperties({
-		@WidgetProperty(key = "enableReportLink", type = WidgetPropertyType.BOOLEAN, defaultValue = "true")
-})
-public class DependencyCheckWidget extends AbstractRubyTemplate implements RubyRailsWidget {
+import javax.xml.stream.FactoryConfigurationError;
+import javax.xml.stream.XMLInputFactory;
 
-	@Override
-	public String getId() {
-		return "dependencycheck";
+public final class OwaspUtils {
+	
+	private OwaspUtils() {
 	}
 
-	@Override
-	public String getTitle() {
-		return "Known Vulnerabilities in Dependencies";
+	public static SMInputFactory newStaxParser() throws FactoryConfigurationError {
+		XMLInputFactory xmlFactory = XMLInputFactory.newInstance();
+		xmlFactory.setProperty(XMLInputFactory.IS_COALESCING, Boolean.TRUE);
+		xmlFactory.setProperty(XMLInputFactory.IS_NAMESPACE_AWARE, Boolean.FALSE);
+		xmlFactory.setProperty(XMLInputFactory.SUPPORT_DTD, Boolean.FALSE);
+		xmlFactory.setProperty(XMLInputFactory.IS_VALIDATING, Boolean.FALSE);
+		return new SMInputFactory(xmlFactory);
 	}
-
-	@Override
-	protected String getTemplatePath() {
-		return "/org/sonar/dependencycheck/ui/widget.html.erb";
-	}
-
+	
 }

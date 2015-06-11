@@ -17,32 +17,26 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.dependencycheck.ui;
+package org.sonar.zaproxy.rule;
 
-import org.sonar.api.web.AbstractRubyTemplate;
-import org.sonar.api.web.RubyRailsWidget;
-import org.sonar.api.web.WidgetProperties;
-import org.sonar.api.web.WidgetProperty;
-import org.sonar.api.web.WidgetPropertyType;
+import org.sonar.api.server.rule.RulesDefinition;
+import org.sonar.api.server.rule.RulesDefinitionXmlLoader;
+import org.sonar.commons.OwaspPlugin;
 
-@WidgetProperties({
-		@WidgetProperty(key = "enableReportLink", type = WidgetPropertyType.BOOLEAN, defaultValue = "true")
-})
-public class DependencyCheckWidget extends AbstractRubyTemplate implements RubyRailsWidget {
+public class ZaproxyRuleDefinition implements RulesDefinition {
 
-	@Override
-	public String getId() {
-		return "dependencycheck";
+	private final RulesDefinitionXmlLoader xmlLoader;
+
+	public ZaproxyRuleDefinition(RulesDefinitionXmlLoader xmlLoader) {
+		this.xmlLoader = xmlLoader;
 	}
 
 	@Override
-	public String getTitle() {
-		return "Known Vulnerabilities in Dependencies";
-	}
-
-	@Override
-	protected String getTemplatePath() {
-		return "/org/sonar/dependencycheck/ui/widget.html.erb";
+	public void define(Context context) {
+		NewRepository repository = context.createRepository(OwaspPlugin.REPOSITORY_ZAPROXY_KEY, 
+				OwaspPlugin.LANGUAGE_KEY).setName(OwaspPlugin.REPOSITORY_ZAPROXY_KEY);
+		xmlLoader.load(repository, getClass().getResourceAsStream("/org/sonar/zaproxy/rules.xml"), "UTF-8");
+		repository.done();
 	}
 
 }

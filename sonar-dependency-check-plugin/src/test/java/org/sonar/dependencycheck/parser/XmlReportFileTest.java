@@ -39,98 +39,98 @@ import static org.mockito.Mockito.when;
 
 public class XmlReportFileTest {
 
-    @Rule
-    public TemporaryFolder temp = new TemporaryFolder();
+	@Rule
+	public TemporaryFolder temp = new TemporaryFolder();
 
-    FileSystem fs = mock(FileSystem.class);
+	FileSystem fs = mock(FileSystem.class);
 
-    @Before
-    public void before() throws Exception {
-        when(this.fs.baseDir()).thenReturn(this.temp.newFolder());
-    }
+	@Before
+	public void before() throws Exception {
+		when(this.fs.baseDir()).thenReturn(this.temp.newFolder());
+	}
 
-    @Test
-    public void testExists() {
-        DependencyCheckSensorConfiguration configuration = mock(DependencyCheckSensorConfiguration.class);
-        when(configuration.getReportPath()).thenReturn("src/test/resources/report/dependency-check-report.xml");
+	@Test
+	public void testExists() {
+		DependencyCheckSensorConfiguration configuration = mock(DependencyCheckSensorConfiguration.class);
+		when(configuration.getReportPath()).thenReturn("src/test/resources/report/dependency-check-report.xml");
 
-        FileSystem fileSystem = mock(FileSystem.class);
-        when(fileSystem.baseDir()).thenReturn(new File(System.getProperty("user.dir")));
-        XmlReportFile xmlReportFile = new XmlReportFile(configuration, fileSystem);
+		FileSystem fileSystem = mock(FileSystem.class);
+		when(fileSystem.baseDir()).thenReturn(new File(System.getProperty("user.dir")));
+		XmlReportFile xmlReportFile = new XmlReportFile(configuration, fileSystem);
 
-        assertTrue(xmlReportFile.exist());
-    }
+		assertTrue(xmlReportFile.exist());
+	}
 
-    @Test
-    public void testNotExists() {
-        DependencyCheckSensorConfiguration configuration = mock(DependencyCheckSensorConfiguration.class);
-        when(configuration.getReportPath()).thenReturn(null);
+	@Test
+	public void testNotExists() {
+		DependencyCheckSensorConfiguration configuration = mock(DependencyCheckSensorConfiguration.class);
+		when(configuration.getReportPath()).thenReturn(null);
 
-        XmlReportFile xmlReportFile = new XmlReportFile(configuration, this.fs);
+		XmlReportFile xmlReportFile = new XmlReportFile(configuration, this.fs);
 
-        assertFalse(xmlReportFile.exist());
-    }
+		assertFalse(xmlReportFile.exist());
+	}
 
-    @Test
-    public void testWrongPathExists() {
-        DependencyCheckSensorConfiguration configuration = mock(DependencyCheckSensorConfiguration.class);
-        when(configuration.getReportPath()).thenReturn("/do/not/exist/dependency-check-report.xml");
+	@Test
+	public void testWrongPathExists() {
+		DependencyCheckSensorConfiguration configuration = mock(DependencyCheckSensorConfiguration.class);
+		when(configuration.getReportPath()).thenReturn("/do/not/exist/dependency-check-report.xml");
 
-        XmlReportFile xmlReportFile = new XmlReportFile(configuration, this.fs);
+		XmlReportFile xmlReportFile = new XmlReportFile(configuration, this.fs);
 
-        try {
-            xmlReportFile.exist();
-            fail("An exception is expected!");
-        } catch (MessageException e) {
-            // expected
-        }
-    }
+		try {
+			xmlReportFile.exist();
+			fail("An exception is expected!");
+		} catch (MessageException e) {
+			// expected
+		}
+	}
 
-    @Test
-    public void testDirExists() {
-        DependencyCheckSensorConfiguration configuration = mock(DependencyCheckSensorConfiguration.class);
-        when(configuration.getReportPath()).thenReturn(System.getProperty("user.dir"));
+	@Test
+	public void testDirExists() {
+		DependencyCheckSensorConfiguration configuration = mock(DependencyCheckSensorConfiguration.class);
+		when(configuration.getReportPath()).thenReturn(System.getProperty("user.dir"));
 
-        XmlReportFile xmlReportFile = new XmlReportFile(configuration, this.fs);
+		XmlReportFile xmlReportFile = new XmlReportFile(configuration, this.fs);
 
-        try {
-            xmlReportFile.exist();
-            fail("An exception is expected!");
-        } catch (MessageException e) {
-            // expected
-        }
-    }
+		try {
+			xmlReportFile.exist();
+			fail("An exception is expected!");
+		} catch (MessageException e) {
+			// expected
+		}
+	}
 
-    @Test
-    public void testNotExistgetInputStream() throws IOException {
-        DependencyCheckSensorConfiguration configuration = mock(DependencyCheckSensorConfiguration.class);
-        when(configuration.getReportPath()).thenReturn(null);
+	@Test
+	public void testNotExistgetInputStream() throws IOException {
+		DependencyCheckSensorConfiguration configuration = mock(DependencyCheckSensorConfiguration.class);
+		when(configuration.getReportPath()).thenReturn(null);
 
-        XmlReportFile xmlReportFile = new XmlReportFile(configuration, this.fs);
+		XmlReportFile xmlReportFile = new XmlReportFile(configuration, this.fs);
 
-        InputStream input = null;
-        try {
-            input = xmlReportFile.getInputStream();
-            fail("An exception is expected!");
-        } catch (FileNotFoundException e) {
-            // expected
-        } finally {
-            Closeables.closeQuietly(input);
-        }
-    }
+		InputStream input = null;
+		try {
+			input = xmlReportFile.getInputStream();
+			fail("An exception is expected!");
+		} catch (FileNotFoundException e) {
+			// expected
+		} finally {
+			Closeables.closeQuietly(input);
+		}
+	}
 
-    @Test
-    public void testInputStream() throws IOException {
-        DependencyCheckSensorConfiguration configuration = mock(DependencyCheckSensorConfiguration.class);
-        when(configuration.getReportPath()).thenReturn(System.getProperty("user.dir") + File.separator + "src/test/resources/report/dependency-check-report.xml");
+	@Test
+	public void testInputStream() throws IOException {
+		DependencyCheckSensorConfiguration configuration = mock(DependencyCheckSensorConfiguration.class);
+		when(configuration.getReportPath()).thenReturn(System.getProperty("user.dir") + File.separator + "src/test/resources/report/dependency-check-report.xml");
 
-        XmlReportFile xmlReportFile = new XmlReportFile(configuration, this.fs);
+		XmlReportFile xmlReportFile = new XmlReportFile(configuration, this.fs);
 
-        InputStream input = null;
-        try {
-            input = xmlReportFile.getInputStream();
-        } finally {
-            Closeables.closeQuietly(input);
-        }
-    }
+		InputStream input = null;
+		try {
+			input = xmlReportFile.getInputStream();
+		} finally {
+			Closeables.closeQuietly(input);
+		}
+	}
 }
