@@ -17,35 +17,27 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-
 package org.sonar.zaproxy.ui;
 
-import org.sonar.api.web.WidgetProperties;
-import org.sonar.api.web.WidgetProperty;
-import org.sonar.api.web.WidgetPropertyType;
+import org.junit.Test;
 
-import org.sonar.api.web.AbstractRubyTemplate;
-import org.sonar.api.web.RubyRailsWidget;
+import static org.fest.assertions.Assertions.assertThat;
 
-@WidgetProperties({
-	@WidgetProperty(key = "enableReportLink", type = WidgetPropertyType.BOOLEAN, defaultValue = "true")
-})
-public class ZaproxyWidget extends AbstractRubyTemplate implements
-		RubyRailsWidget {
+public class ZaproxyWidgetTest {
 
-	@Override
-	public String getId() {
-		return "zaproxy";
+	@Test
+	public void test_rails_template() throws Exception {
+		ZaproxyWidget widget = new ZaproxyWidget();
+		assertThat(widget.getClass().getResource(widget.getTemplatePath()))
+				.as("Template not found: " + widget.getTemplatePath())
+				.isNotNull();
 	}
 
-	@Override
-	public String getTitle() {
-		return "Known Vulnerabilities of Website";
-	}
-
-	@Override
-	protected String getTemplatePath() {
-		return "/org/sonar/zaproxy/ui/widget.html.erb";
+	@Test
+	public void test_metadata() throws Exception {
+		ZaproxyWidget widget = new ZaproxyWidget();
+		assertThat(widget.getId()).containsIgnoringCase("zaproxy");
+		assertThat(widget.getTitle()).contains("Known Vulnerabilities");
 	}
 
 }
