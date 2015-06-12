@@ -48,11 +48,11 @@
         </dependency>
         
         <!-- Dependency containing vulnerabilities for dependency-check-maven -->
-        <!--<dependency>
+        <dependency>
         	<groupId>org.bouncycastle</groupId>
         	<artifactId>bctsp-jdk14</artifactId>
         	<version>1.38</version>
-        </dependency>-->
+        </dependency>
 
     </dependencies>
 
