@@ -135,7 +135,7 @@ public class ZaproxySensor implements Sensor {
 		}
 	}
 	
-	private void addIssues(SensorContext context, Project project, OWASPZAPReport owaspZapReport) {
+	private void addIssues(OWASPZAPReport owaspZapReport) {
 		if (owaspZapReport.getSite().getAlerts() == null) {
 			return;
 		}
@@ -160,7 +160,7 @@ public class ZaproxySensor implements Sensor {
 		try {
 			OWASPZAPReport owaspZapReport = parseOwaspZapReport();
 			totalAlerts = owaspZapReport.getSite().getAlerts().size();
-			addIssues(context, project, owaspZapReport);
+			addIssues(owaspZapReport);
 		} catch (Exception e) {
 			throw new RuntimeException("Can not process " + ZaproxyConstants.TOOL_NAME + " report. Ensure the report are located within the project workspace and that sonar.sources is set to reflect these paths (or set sonar.sources=.)", e);
 		} finally {

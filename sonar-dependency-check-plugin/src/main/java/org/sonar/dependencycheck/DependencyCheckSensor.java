@@ -88,7 +88,7 @@ public class DependencyCheckSensor implements Sensor {
 		return this.report.exist();
 	}
 
-	private void addIssue(InputFile inputFile, Analysis analysis, Dependency dependency, Vulnerability vulnerability) {
+	private void addIssue(InputFile inputFile, Dependency dependency, Vulnerability vulnerability) {
 		Issuable issuable = this.resourcePerspectives.as(Issuable.class, inputFile);
 		if (issuable != null) {
 			String severity = DependencyCheckUtils.cvssToSonarQubeSeverity(vulnerability.getCvssScore());
@@ -101,7 +101,7 @@ public class DependencyCheckSensor implements Sensor {
 					.line(null)
 					.build();
 			if (issuable.addIssue(issue)) {
-				incrementCount(vulnerability, severity);
+				incrementCount(severity);
 			}
 		}
 	}
@@ -122,7 +122,7 @@ public class DependencyCheckSensor implements Sensor {
 		return sb.toString();
 	}
 
-	private void incrementCount(Vulnerability vulnerability, String severity) {
+	private void incrementCount(String severity) {
 		switch (severity) {
 			case Severity.CRITICAL:
 				this.criticalIssuesCount++;
@@ -136,7 +136,7 @@ public class DependencyCheckSensor implements Sensor {
 		}
 	}
 
-	private void addIssues(SensorContext context, Project project, Analysis analysis) {
+	private void addIssues(SensorContext context, Analysis analysis) {
 		if (analysis.getDependencies() == null) {
 			return;
 		}
@@ -154,7 +154,7 @@ public class DependencyCheckSensor implements Sensor {
 
 			for (Vulnerability vulnerability : dependency.getVulnerabilities()) {
 				InputFile inputFile = fileSystem.inputFile(fileSystem.predicates().is(report.getFile()));
-				addIssue(inputFile, analysis, dependency, vulnerability);
+				addIssue(inputFile, dependency, vulnerability);
 				vulnerabilityCount++;
 			}
 		}
@@ -179,7 +179,7 @@ public class DependencyCheckSensor implements Sensor {
 		try {
 			Analysis analysis = parseAnalysis();
 			totalDependencies = analysis.getDependencies().size();
-			addIssues(context, project, analysis);
+			addIssues(context, analysis);
 		} catch (Exception e) {
 			throw new RuntimeException("Can not process Dependency-Check report. Ensure the report and all dependencies being analyzed are located within the project workspace and that sonar.sources is set to reflect these paths (or set sonar.sources=.)", e);
 		} finally {
