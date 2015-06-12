@@ -46,6 +46,14 @@
             <artifactId>mockito-all</artifactId>
             <scope>test</scope>
         </dependency>
+        
+        <!-- Dependency containing vulnerabilities for dependency-check-maven -->
+        <dependency>
+        	<groupId>org.bouncycastle</groupId>
+        	<artifactId>bctsp-jdk14</artifactId>
+        	<version>1.38</version>
+        </dependency>
+
     </dependencies>
 
     <build>
