@@ -17,13 +17,12 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.dependencycheck.parser;
+package org.sonar.dependencycheck;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.sonar.api.config.Settings;
 import org.sonar.api.profiles.RulesProfile;
-import org.sonar.dependencycheck.DependencyCheckSensorConfiguration;
 import org.sonar.dependencycheck.base.DependencyCheckConstants;
 
 import static org.fest.assertions.Assertions.assertThat;
@@ -31,21 +30,21 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 public class DependencyCheckSensorConfigurationTest {
-    private RulesProfile profile;
-    private Settings settings;
-    private DependencyCheckSensorConfiguration sensorConfiguration;
+	private RulesProfile profile;
+	private Settings settings;
+	private DependencyCheckSensorConfiguration sensorConfiguration;
 
-    @Before
-    public void init() {
-        this.profile = mock(RulesProfile.class);
-        this.settings = mock(Settings.class);
-        this.sensorConfiguration = new DependencyCheckSensorConfiguration(this.profile, this.settings);
-    }
+	@Before
+	public void init() {
+		this.profile = mock(RulesProfile.class);
+		this.settings = mock(Settings.class);
+		this.sensorConfiguration = new DependencyCheckSensorConfiguration(this.profile, this.settings);
+	}
 
-    @Test
-    public void testGetReportPath() {
-        when(this.settings.getString(DependencyCheckConstants.REPORT_PATH_PROPERTY)).thenReturn("location");
-        assertThat(this.sensorConfiguration.getReportPath()).isEqualTo("location");
-    }
+	@Test
+	public void testGetReportPath() {
+		when(this.settings.getString(DependencyCheckConstants.REPORT_PATH_PROPERTY)).thenReturn("location");
+		assertThat(this.sensorConfiguration.getReportPath()).isEqualTo("location");
+	}
 
 }
