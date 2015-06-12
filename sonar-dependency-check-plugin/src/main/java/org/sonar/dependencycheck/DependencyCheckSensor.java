@@ -19,10 +19,6 @@
  */
 package org.sonar.dependencycheck;
 
-import org.sonar.commons.OwaspPlugin;
-
-import org.sonar.dependencycheck.base.DependencyCheckConstants;
-import org.sonar.commons.XmlGlobalReportFile;
 import org.apache.commons.lang.StringUtils;
 import org.sonar.api.batch.Sensor;
 import org.sonar.api.batch.SensorContext;
@@ -40,10 +36,12 @@ import org.sonar.api.rule.Severity;
 import org.sonar.api.utils.log.Logger;
 import org.sonar.api.utils.log.Loggers;
 import org.sonar.api.utils.log.Profiler;
-import org.sonar.dependencycheck.base.DependencyCheckUtils;
+import org.sonar.commons.OwaspPlugin;
+import org.sonar.commons.XmlGlobalReportFile;
+import org.sonar.dependencycheck.base.DependencyCheckConstants;
 import org.sonar.dependencycheck.base.DependencyCheckMetrics;
+import org.sonar.dependencycheck.base.DependencyCheckUtils;
 import org.sonar.dependencycheck.parser.ReportParser;
-import org.sonar.dependencycheck.parser.XmlReportFile;
 import org.sonar.dependencycheck.parser.element.Analysis;
 import org.sonar.dependencycheck.parser.element.Dependency;
 import org.sonar.dependencycheck.parser.element.Vulnerability;

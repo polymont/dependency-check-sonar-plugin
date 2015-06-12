@@ -17,7 +17,7 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.dependencycheck.parser;
+package org.sonar.commons;
 
 import com.google.common.io.Closeables;
 import org.junit.Before;
@@ -26,18 +26,22 @@ import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 import org.sonar.api.batch.fs.FileSystem;
 import org.sonar.api.utils.MessageException;
+import org.sonar.commons.XmlGlobalReportFile;
 import org.sonar.dependencycheck.DependencyCheckSensorConfiguration;
+import org.sonar.dependencycheck.base.DependencyCheckConstants;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-public class XmlReportFileTest {
+public class XmlGlobalReportFileTest {
 
 	@Rule
 	public TemporaryFolder temp = new TemporaryFolder();
@@ -56,7 +60,8 @@ public class XmlReportFileTest {
 
 		FileSystem fileSystem = mock(FileSystem.class);
 		when(fileSystem.baseDir()).thenReturn(new File(System.getProperty("user.dir")));
-		XmlReportFile xmlReportFile = new XmlReportFile(configuration, fileSystem);
+		XmlGlobalReportFile xmlReportFile = new XmlGlobalReportFile(configuration, fileSystem,
+				DependencyCheckConstants.TOOL_NAME, configuration.getReportPath());
 
 		assertTrue(xmlReportFile.exist());
 	}
@@ -66,7 +71,8 @@ public class XmlReportFileTest {
 		DependencyCheckSensorConfiguration configuration = mock(DependencyCheckSensorConfiguration.class);
 		when(configuration.getReportPath()).thenReturn(null);
 
-		XmlReportFile xmlReportFile = new XmlReportFile(configuration, this.fs);
+		XmlGlobalReportFile xmlReportFile = new XmlGlobalReportFile(configuration, this.fs,
+				DependencyCheckConstants.TOOL_NAME, configuration.getReportPath());
 
 		assertFalse(xmlReportFile.exist());
 	}
@@ -76,7 +82,8 @@ public class XmlReportFileTest {
 		DependencyCheckSensorConfiguration configuration = mock(DependencyCheckSensorConfiguration.class);
 		when(configuration.getReportPath()).thenReturn("/do/not/exist/dependency-check-report.xml");
 
-		XmlReportFile xmlReportFile = new XmlReportFile(configuration, this.fs);
+		XmlGlobalReportFile xmlReportFile = new XmlGlobalReportFile(configuration, this.fs,
+				DependencyCheckConstants.TOOL_NAME, configuration.getReportPath());
 
 		try {
 			xmlReportFile.exist();
@@ -91,7 +98,8 @@ public class XmlReportFileTest {
 		DependencyCheckSensorConfiguration configuration = mock(DependencyCheckSensorConfiguration.class);
 		when(configuration.getReportPath()).thenReturn(System.getProperty("user.dir"));
 
-		XmlReportFile xmlReportFile = new XmlReportFile(configuration, this.fs);
+		XmlGlobalReportFile xmlReportFile = new XmlGlobalReportFile(configuration, this.fs,
+				DependencyCheckConstants.TOOL_NAME, configuration.getReportPath());
 
 		try {
 			xmlReportFile.exist();
@@ -106,7 +114,8 @@ public class XmlReportFileTest {
 		DependencyCheckSensorConfiguration configuration = mock(DependencyCheckSensorConfiguration.class);
 		when(configuration.getReportPath()).thenReturn(null);
 
-		XmlReportFile xmlReportFile = new XmlReportFile(configuration, this.fs);
+		XmlGlobalReportFile xmlReportFile = new XmlGlobalReportFile(configuration, this.fs,
+				DependencyCheckConstants.TOOL_NAME, configuration.getReportPath());
 
 		InputStream input = null;
 		try {
@@ -124,7 +133,8 @@ public class XmlReportFileTest {
 		DependencyCheckSensorConfiguration configuration = mock(DependencyCheckSensorConfiguration.class);
 		when(configuration.getReportPath()).thenReturn(System.getProperty("user.dir") + File.separator + "src/test/resources/report/dependency-check-report.xml");
 
-		XmlReportFile xmlReportFile = new XmlReportFile(configuration, this.fs);
+		XmlGlobalReportFile xmlReportFile = new XmlGlobalReportFile(configuration, this.fs,
+				DependencyCheckConstants.TOOL_NAME, configuration.getReportPath());
 
 		InputStream input = null;
 		try {
