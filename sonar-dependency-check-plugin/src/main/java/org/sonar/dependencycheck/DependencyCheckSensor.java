@@ -85,7 +85,11 @@ public class DependencyCheckSensor implements Sensor {
 
 	@Override
 	public boolean shouldExecuteOnProject(Project project) {
-		return this.report.exist();
+		if(configuration.isEnabled() && this.report.exist()) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	private void addIssue(InputFile inputFile, Dependency dependency, Vulnerability vulnerability) {

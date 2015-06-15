@@ -24,6 +24,7 @@ import org.sonar.api.BatchExtension;
 import org.sonar.api.config.Settings;
 import org.sonar.api.profiles.RulesProfile;
 import org.sonar.commons.CommonsConfiguration;
+import org.sonar.commons.OwaspPlugin;
 import org.sonar.zaproxy.base.ZaproxyConstants;
 
 public class ZaproxySensorConfiguration implements BatchExtension, CommonsConfiguration {
@@ -43,6 +44,16 @@ public class ZaproxySensorConfiguration implements BatchExtension, CommonsConfig
 			reportPath = "zaproxy-report.xml"; // Setting not specified. Use default filename.
 		}
 		return reportPath;
+	}
+
+	@Override
+	public boolean isEnabled() {
+		if(settings.getBoolean(OwaspPlugin.ENABLED)
+				&& settings.getBoolean(ZaproxyConstants.ENABLED_ZAPROXY)) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 }

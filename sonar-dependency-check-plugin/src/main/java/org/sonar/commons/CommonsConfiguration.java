@@ -29,4 +29,5 @@ import org.sonar.api.BatchExtension;
  */
 public interface CommonsConfiguration extends BatchExtension {
 	public String getReportPath();
+	public boolean isEnabled();
 }

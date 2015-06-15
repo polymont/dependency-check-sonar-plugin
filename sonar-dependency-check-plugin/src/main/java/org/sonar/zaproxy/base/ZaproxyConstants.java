@@ -23,6 +23,7 @@ public final class ZaproxyConstants {
 
 	public static final String REPORT_PATH_PROPERTY = "sonar.zaproxy.reportPath";
 	public static final String TOOL_NAME = "ZAProxy";
+	public static final String ENABLED_ZAPROXY = "sonar.owasp.zaproxy.enabled";
 
 	private ZaproxyConstants() {
 	}

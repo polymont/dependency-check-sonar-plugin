@@ -81,7 +81,11 @@ public class ZaproxySensor implements Sensor {
 
 	@Override
 	public boolean shouldExecuteOnProject(Project project) {
-		return this.report.exist();
+		if(configuration.isEnabled() && this.report.exist()) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 	
 	// TODO improve informations show in this part
@@ -114,8 +118,6 @@ public class ZaproxySensor implements Sensor {
 		if (issuable != null) {
 			String severity = ZaproxyUtils.riskCodeToSonarQubeSeverity(alert.getRiskcode());
 			String pluginid = String.valueOf(alert.getPluginid());
-//			LOGGER.info("Rule " + OwaspPlugin.REPOSITORY_ZAPROXY_KEY + ":" +pluginid + " exists ?" +
-//					rules.find(RuleKey.of(OwaspPlugin.REPOSITORY_ZAPROXY_KEY, pluginid)));
 			// Check if the rule with the pluginid exists
 			if( rules.find(RuleKey.of(OwaspPlugin.REPOSITORY_ZAPROXY_KEY, pluginid)) != null ) {
 				Issue issue = issuable.newIssueBuilder()
@@ -124,7 +126,6 @@ public class ZaproxySensor implements Sensor {
 						.severity(severity)
 						.line(null)
 						.build();
-//				LOGGER.info("Issue ajoute ??? " + b);
 				if (issuable.addIssue(issue)) {
 					incrementCount(severity);
 				}

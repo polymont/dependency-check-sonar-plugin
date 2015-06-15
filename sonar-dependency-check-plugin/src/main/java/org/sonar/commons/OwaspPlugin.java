@@ -19,6 +19,11 @@
  */
 package org.sonar.commons;
 
+import org.sonar.zaproxy.base.ZaproxyConstants;
+
+import org.sonar.api.Properties;
+import org.sonar.api.Property;
+import org.sonar.api.PropertyType;
 import org.sonar.api.SonarPlugin;
 import org.sonar.dependencycheck.DependencyCheckSensor;
 import org.sonar.dependencycheck.DependencyCheckSensorConfiguration;
@@ -30,6 +35,7 @@ import org.sonar.zaproxy.ZaproxySensorConfiguration;
 import org.sonar.zaproxy.base.ZaproxyMetrics;
 import org.sonar.zaproxy.rule.ZaproxyRuleDefinition;
 import org.sonar.zaproxy.ui.ZaproxyWidget;
+import org.sonar.dependencycheck.base.DependencyCheckConstants;
 
 import java.util.Arrays;
 import java.util.List;
@@ -40,12 +46,45 @@ import java.util.List;
  * @author ludovic.roucoux
  *
  */
+@Properties({
+	@Property(
+		key = OwaspPlugin.ENABLED,
+		defaultValue = "true",
+		name = "Activation of this OWASP plugin",
+		description = "This property can be set to false in order to deactivate the OWASP plugin.",
+		module = true,
+		project = true,
+		global = true,
+		type = PropertyType.BOOLEAN
+	),
+	@Property(
+		key = ZaproxyConstants.ENABLED_ZAPROXY,
+		defaultValue = "true",
+		name = "Activation of the ZAProxy widget",
+		description = "This property can be set to false in order to deactivate the ZAProxy widget.",
+		module = true,
+		project = true,
+		global = true,
+		type = PropertyType.BOOLEAN
+	),
+	@Property(
+		key = DependencyCheckConstants.ENABLED_DEPENDENCY_CHECK,
+		defaultValue = "true",
+		name = "Activation of the DependencyCheck widget",
+		description = "This property can be set to false in order to deactivate the DependencyCheck widget.",
+		module = true,
+		project = true,
+		global = true,
+		type = PropertyType.BOOLEAN
+	)})
 public final class OwaspPlugin extends SonarPlugin {
 	
 	public static final String REPOSITORY_KEY = "OWASP";
 	public static final String REPOSITORY_ZAPROXY_KEY = "OWASP-ZAPROXY";
 	public static final String LANGUAGE_KEY = "neutral";
 	public static final String RULE_KEY = "UsingComponentWithKnownVulnerability";
+	
+	public static final String ENABLED = "sonar.owasp.enabled";
 
 	@Override
 	public List getExtensions() {

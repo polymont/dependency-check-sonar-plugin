@@ -19,12 +19,12 @@
  */
 package org.sonar.dependencycheck;
 
-import org.sonar.commons.CommonsConfiguration;
-
 import org.apache.commons.lang.StringUtils;
 import org.sonar.api.BatchExtension;
 import org.sonar.api.config.Settings;
 import org.sonar.api.profiles.RulesProfile;
+import org.sonar.commons.CommonsConfiguration;
+import org.sonar.commons.OwaspPlugin;
 import org.sonar.dependencycheck.base.DependencyCheckConstants;
 
 
@@ -44,6 +44,15 @@ public class DependencyCheckSensorConfiguration implements BatchExtension, Commo
 			reportPath = "dependency-check-report.xml"; // Setting not specified. Use default filename.
 		}
 		return reportPath;
+	}
+	
+	public boolean isEnabled() {
+		if(settings.getBoolean(OwaspPlugin.ENABLED)
+				&& settings.getBoolean(DependencyCheckConstants.ENABLED_DEPENDENCY_CHECK)) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 }

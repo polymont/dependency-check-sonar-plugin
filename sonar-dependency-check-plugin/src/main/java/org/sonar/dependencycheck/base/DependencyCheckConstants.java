@@ -21,8 +21,10 @@ package org.sonar.dependencycheck.base;
 
 public final class DependencyCheckConstants {
 
+	// TODO rename dependencycheck to owasp
 	public static final String REPORT_PATH_PROPERTY = "sonar.dependencyCheck.reportPath";
 	public static final String TOOL_NAME = "Dependency-Check";
+	public static final String ENABLED_DEPENDENCY_CHECK = "sonar.owasp.dependencycheck.enabled";
 
 	private DependencyCheckConstants() {
 	}
