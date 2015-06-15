@@ -22,6 +22,7 @@ package org.sonar.zaproxy.base;
 public final class ZaproxyConstants {
 
 	public static final String REPORT_PATH_PROPERTY = "sonar.zaproxy.reportPath";
+	public static final String RULES_FILE_PATH_PROPERTY = "sonar.zaproxy.rulesFilePath";
 	public static final String TOOL_NAME = "ZAProxy";
 	public static final String ENABLED_ZAPROXY = "sonar.owasp.zaproxy.enabled";
 

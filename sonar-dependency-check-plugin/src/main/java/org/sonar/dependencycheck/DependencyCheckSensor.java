@@ -55,7 +55,7 @@ import java.io.InputStream;
 
 public class DependencyCheckSensor implements Sensor {
 
-	public static final Logger LOGGER = Loggers.get(DependencyCheckSensor.class);
+	private static final Logger LOGGER = Loggers.get(DependencyCheckSensor.class);
 
 	private final DependencyCheckSensorConfiguration configuration;
 	private final ResourcePerspectives resourcePerspectives;

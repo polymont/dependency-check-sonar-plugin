@@ -56,7 +56,6 @@ public class ZaproxySensor implements Sensor {
 	private final ZaproxySensorConfiguration configuration;
 	private final ResourcePerspectives resourcePerspectives;
 	private final FileSystem fileSystem;
-	private final ActiveRules activeRules;
 	private final XmlGlobalReportFile report;
 	private final Rules rules;
 	
@@ -67,13 +66,10 @@ public class ZaproxySensor implements Sensor {
 	private int infoIssuesCount;
 	
 	public ZaproxySensor(ZaproxySensorConfiguration configuration,
-			ResourcePerspectives resourcePerspectives, FileSystem fileSystem,
-			ActiveRules activeRules, Rules rules) {
-		super();
+			ResourcePerspectives resourcePerspectives, FileSystem fileSystem, Rules rules) {
 		this.configuration = configuration;
 		this.resourcePerspectives = resourcePerspectives;
 		this.fileSystem = fileSystem;
-		this.activeRules = activeRules;
 		this.rules = rules;
 		this.report = new XmlGlobalReportFile(configuration, fileSystem, ZaproxyConstants.TOOL_NAME, 
 				ZaproxyConstants.REPORT_PATH_PROPERTY);

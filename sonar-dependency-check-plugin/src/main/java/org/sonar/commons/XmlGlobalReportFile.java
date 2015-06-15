@@ -22,6 +22,8 @@ package org.sonar.commons;
 import org.apache.commons.lang.StringUtils;
 import org.sonar.api.batch.fs.FileSystem;
 import org.sonar.api.utils.MessageException;
+import org.sonar.api.utils.log.Logger;
+import org.sonar.api.utils.log.Loggers;
 
 import javax.annotation.CheckForNull;
 
@@ -37,6 +39,9 @@ import java.io.InputStream;
  *
  */
 public class XmlGlobalReportFile {
+	
+	private static final Logger LOGGER = Loggers.get(XmlGlobalReportFile.class);
+	
 	private final CommonsConfiguration configuration;
 	private final FileSystem fileSystem;
 
@@ -60,16 +65,21 @@ public class XmlGlobalReportFile {
 	@CheckForNull
 	protected File getReportFromProperty() {
 		String path = this.configuration.getReportPath();
-		if (StringUtils.isNotBlank(path)) {
-			this.report = new File(path);
-			if (!report.isAbsolute()) {
-				report = new File(this.fileSystem.baseDir(), path);
+		try {
+			if (StringUtils.isNotBlank(path)) {
+				this.report = new File(path);
+				if (!report.isAbsolute()) {
+					report = new File(this.fileSystem.baseDir(), path);
+				}
+				if (report.exists() && report.isFile()) {
+					return report;
+				}
+				throw MessageException.of(toolName + " report does not exist. Please check property " +
+						reportPathProperty + ": " + path);
 			}
-			if (report.exists() && report.isFile()) {
-				return report;
-			}
-			throw MessageException.of(toolName + " report does not exist. Please check property " +
-					reportPathProperty + ": " + path);
+		} catch (MessageException e) {
+			LOGGER.warn(e.getLocalizedMessage());
+			return null;
 		}
 		return null;
 	}

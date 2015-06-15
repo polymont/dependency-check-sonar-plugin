@@ -85,12 +85,7 @@ public class XmlGlobalReportFileTest {
 		XmlGlobalReportFile xmlReportFile = new XmlGlobalReportFile(configuration, this.fs,
 				DependencyCheckConstants.TOOL_NAME, configuration.getReportPath());
 
-		try {
-			xmlReportFile.exist();
-			fail("An exception is expected!");
-		} catch (MessageException e) {
-			// expected
-		}
+		assertFalse(xmlReportFile.exist());
 	}
 
 	@Test
@@ -101,12 +96,7 @@ public class XmlGlobalReportFileTest {
 		XmlGlobalReportFile xmlReportFile = new XmlGlobalReportFile(configuration, this.fs,
 				DependencyCheckConstants.TOOL_NAME, configuration.getReportPath());
 
-		try {
-			xmlReportFile.exist();
-			fail("An exception is expected!");
-		} catch (MessageException e) {
-			// expected
-		}
+		assertFalse(xmlReportFile.exist());
 	}
 
 	@Test

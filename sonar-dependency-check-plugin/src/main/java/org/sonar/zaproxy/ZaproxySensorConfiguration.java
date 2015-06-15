@@ -55,5 +55,13 @@ public class ZaproxySensorConfiguration implements BatchExtension, CommonsConfig
 			return false;
 		}
 	}
+	
+	public String getRulesFilePath() {
+		String rulesFilePath = this.settings.getString(ZaproxyConstants.RULES_FILE_PATH_PROPERTY);
+		if (StringUtils.isBlank(rulesFilePath)) {
+			rulesFilePath = "rules.xml"; // Setting not specified. Use default filename.
+		}
+		return rulesFilePath;
+	}
 
 }
