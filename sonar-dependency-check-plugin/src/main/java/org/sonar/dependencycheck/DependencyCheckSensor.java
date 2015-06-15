@@ -55,7 +55,7 @@ import java.io.InputStream;
 
 public class DependencyCheckSensor implements Sensor {
 
-	private static final Logger LOGGER = Loggers.get(DependencyCheckSensor.class);
+	public static final Logger LOGGER = Loggers.get(DependencyCheckSensor.class);
 
 	private final DependencyCheckSensorConfiguration configuration;
 	private final ResourcePerspectives resourcePerspectives;
@@ -188,7 +188,7 @@ public class DependencyCheckSensor implements Sensor {
 		saveMeasures(context);
 	}
 
-	private void saveMeasures(SensorContext context) {
+	private void saveMeasures(SensorContext context) {		
 		context.saveMeasure(DependencyCheckMetrics.HIGH_SEVERITY_VULNS, (double) criticalIssuesCount);
 		context.saveMeasure(DependencyCheckMetrics.MEDIUM_SEVERITY_VULNS, (double) majorIssuesCount);
 		context.saveMeasure(DependencyCheckMetrics.LOW_SEVERITY_VULNS, (double) minorIssuesCount);
