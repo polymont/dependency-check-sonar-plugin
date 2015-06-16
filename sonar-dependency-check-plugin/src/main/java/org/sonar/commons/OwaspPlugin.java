@@ -60,8 +60,8 @@ import java.util.List;
 	@Property(
 		key = ZaproxyConstants.ENABLED_ZAPROXY,
 		defaultValue = "true",
-		name = "Activation of the ZAProxy widget",
-		description = "This property can be set to false in order to deactivate the ZAProxy widget.",
+		name = "Activation of the ZAProxy sensor",
+		description = "This property can be set to false in order to deactivate the ZAProxy sensor.",
 		module = true,
 		project = true,
 		global = true,
@@ -70,8 +70,8 @@ import java.util.List;
 	@Property(
 		key = DependencyCheckConstants.ENABLED_DEPENDENCY_CHECK,
 		defaultValue = "true",
-		name = "Activation of the DependencyCheck widget",
-		description = "This property can be set to false in order to deactivate the DependencyCheck widget.",
+		name = "Activation of the DependencyCheck sensor",
+		description = "This property can be set to false in order to deactivate the DependencyCheck sensor.",
 		module = true,
 		project = true,
 		global = true,
