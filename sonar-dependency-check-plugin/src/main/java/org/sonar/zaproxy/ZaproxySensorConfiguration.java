@@ -21,6 +21,7 @@ package org.sonar.zaproxy;
 
 import org.apache.commons.lang.StringUtils;
 import org.sonar.api.BatchExtension;
+import org.sonar.api.ServerExtension;
 import org.sonar.api.config.Settings;
 import org.sonar.api.profiles.RulesProfile;
 import org.sonar.commons.CommonsConfiguration;
@@ -56,12 +57,6 @@ public class ZaproxySensorConfiguration implements BatchExtension, CommonsConfig
 		}
 	}
 	
-	public String getRulesFilePath() {
-		String rulesFilePath = this.settings.getString(ZaproxyConstants.RULES_FILE_PATH_PROPERTY);
-		if (StringUtils.isBlank(rulesFilePath)) {
-			rulesFilePath = "rules.xml"; // Setting not specified. Use default filename.
-		}
-		return rulesFilePath;
-	}
+	
 
 }

@@ -76,11 +76,20 @@ import java.util.List;
 		project = true,
 		global = true,
 		type = PropertyType.BOOLEAN
+	),
+	@Property(
+		key = ZaproxyConstants.RULES_FILE_PATH_PROPERTY,
+		name = "Path to file",
+		description = "Path to file containing all rules used by ZAProxy. The Sonar Server must be restart.",
+		module = true,
+		project = true,
+		global = true,
+		type = PropertyType.STRING
 	)})
 public final class OwaspPlugin extends SonarPlugin {
 	
-	public static final String REPOSITORY_KEY = "OWASP";
 	public static final String REPOSITORY_ZAPROXY_KEY = "OWASP-ZAPROXY";
+	public static final String REPOSITORY_DEPENDENCY_CHECK_KEY = "OWASP-DEPENDENCY-CHECK";
 	public static final String LANGUAGE_KEY = "neutral";
 	public static final String RULE_KEY = "UsingComponentWithKnownVulnerability";
 	

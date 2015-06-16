@@ -19,23 +19,68 @@
  */
 package org.sonar.zaproxy.rule;
 
+import org.apache.commons.lang.StringUtils;
+import org.sonar.api.BatchExtension;
+import org.sonar.api.config.Settings;
 import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.api.server.rule.RulesDefinitionXmlLoader;
+import org.sonar.api.utils.log.Logger;
+import org.sonar.api.utils.log.Loggers;
 import org.sonar.commons.OwaspPlugin;
+import org.sonar.zaproxy.base.ZaproxyConstants;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 
 public class ZaproxyRuleDefinition implements RulesDefinition {
+	
+	private static final Logger LOGGER = Loggers.get(ZaproxyRuleDefinition.class);
 
 	private final RulesDefinitionXmlLoader xmlLoader;
+	private final Settings settings;
 
-	public ZaproxyRuleDefinition(RulesDefinitionXmlLoader xmlLoader) {
+	public ZaproxyRuleDefinition(RulesDefinitionXmlLoader xmlLoader, Settings settings) {
 		this.xmlLoader = xmlLoader;
+		this.settings = settings;
+	}
+	
+	private String getRulesFilePath() {
+		String rulesFilePath = this.settings.getString(ZaproxyConstants.RULES_FILE_PATH_PROPERTY);
+		if (StringUtils.isBlank(rulesFilePath)) {
+			return null;
+		}
+		LOGGER.info("Chemin vers rules.xml = [" + rulesFilePath + "]");
+		return rulesFilePath;
+	}
+	
+	private void loadDefaultZAProxyRules(NewRepository repository) {
+		xmlLoader.load(repository, getClass().getResourceAsStream("/org/sonar/zaproxy/rules.xml"), "UTF-8");
 	}
 
 	@Override
 	public void define(Context context) {
 		NewRepository repository = context.createRepository(OwaspPlugin.REPOSITORY_ZAPROXY_KEY, 
 				OwaspPlugin.LANGUAGE_KEY).setName(OwaspPlugin.REPOSITORY_ZAPROXY_KEY);
-		xmlLoader.load(repository, getClass().getResourceAsStream("/org/sonar/zaproxy/rules.xml"), "UTF-8");
+		
+		String rulesFilePath = getRulesFilePath();
+		
+		if(rulesFilePath == null) { // rules.xml by default
+			loadDefaultZAProxyRules(repository);
+		} else { // custom rules.xml
+			File f = null;
+			try {
+				f = new File(rulesFilePath);
+				xmlLoader.load(repository, new FileInputStream(f), "UTF-8");
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+				LOGGER.warn("Le fichier " + f.getAbsolutePath() + " n'existe pas", e);
+				
+				// Load default ZAProxy rules if custom rules.xml does not exist.
+				loadDefaultZAProxyRules(repository);
+			}
+		}
+		
 		repository.done();
 	}
 

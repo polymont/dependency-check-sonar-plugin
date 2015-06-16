@@ -60,7 +60,6 @@ public class DependencyCheckSensor implements Sensor {
 	private final DependencyCheckSensorConfiguration configuration;
 	private final ResourcePerspectives resourcePerspectives;
 	private final FileSystem fileSystem;
-	private final ActiveRules activeRules;
 	private final XmlGlobalReportFile report;
 
 	private int totalDependencies;
@@ -78,7 +77,6 @@ public class DependencyCheckSensor implements Sensor {
 		this.configuration = configuration;
 		this.resourcePerspectives = resourcePerspectives;
 		this.fileSystem = fileSystem;
-		this.activeRules = activeRules;
 		this.report = new XmlGlobalReportFile(configuration, fileSystem, DependencyCheckConstants.TOOL_NAME, 
 				DependencyCheckConstants.REPORT_PATH_PROPERTY);
 	}
@@ -97,7 +95,7 @@ public class DependencyCheckSensor implements Sensor {
 		if (issuable != null) {
 			String severity = DependencyCheckUtils.cvssToSonarQubeSeverity(vulnerability.getCvssScore());
 			Issue issue = issuable.newIssueBuilder()
-					.ruleKey(RuleKey.of(OwaspPlugin.REPOSITORY_KEY, OwaspPlugin.RULE_KEY))
+					.ruleKey(RuleKey.of(OwaspPlugin.REPOSITORY_DEPENDENCY_CHECK_KEY, OwaspPlugin.RULE_KEY))
 					.message(formatDescription(dependency, vulnerability))
 					.severity(severity)
 					.attribute("cve", vulnerability.getName())
