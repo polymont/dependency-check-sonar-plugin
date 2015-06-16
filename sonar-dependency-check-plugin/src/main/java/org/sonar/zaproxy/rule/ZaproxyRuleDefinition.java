@@ -20,7 +20,6 @@
 package org.sonar.zaproxy.rule;
 
 import org.apache.commons.lang.StringUtils;
-import org.sonar.api.BatchExtension;
 import org.sonar.api.config.Settings;
 import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.api.server.rule.RulesDefinitionXmlLoader;
@@ -50,7 +49,7 @@ public class ZaproxyRuleDefinition implements RulesDefinition {
 		if (StringUtils.isBlank(rulesFilePath)) {
 			return null;
 		}
-		LOGGER.info("Chemin vers rules.xml = [" + rulesFilePath + "]");
+		LOGGER.info("Path to rules.xml = [" + rulesFilePath + "]");
 		return rulesFilePath;
 	}
 	
@@ -74,7 +73,7 @@ public class ZaproxyRuleDefinition implements RulesDefinition {
 				xmlLoader.load(repository, new FileInputStream(f), "UTF-8");
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
-				LOGGER.warn("Le fichier " + f.getAbsolutePath() + " n'existe pas", e);
+				LOGGER.warn("The file " + f.getAbsolutePath() + " does not exist", e);
 				
 				// Load default ZAProxy rules if custom rules.xml does not exist.
 				loadDefaultZAProxyRules(repository);

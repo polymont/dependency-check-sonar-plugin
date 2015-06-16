@@ -30,11 +30,9 @@ import org.sonar.zaproxy.base.ZaproxyConstants;
 
 public class ZaproxySensorConfiguration implements BatchExtension, CommonsConfiguration {
 	
-	private final RulesProfile profile;
 	private final Settings settings;
 
-	public ZaproxySensorConfiguration(RulesProfile profile, Settings settings) {
-		this.profile = profile;
+	public ZaproxySensorConfiguration(Settings settings) {
 		this.settings = settings;
 	}
 
@@ -56,7 +54,4 @@ public class ZaproxySensorConfiguration implements BatchExtension, CommonsConfig
 			return false;
 		}
 	}
-	
-	
-
 }

@@ -31,15 +31,13 @@ import static org.mockito.Mockito.when;
 
 public class ZaproxySensorConfigurationTest {
 	
-	private RulesProfile profile;
 	private Settings settings;
 	private ZaproxySensorConfiguration sensorConfiguration;
 
 	@Before
 	public void init() {
-		this.profile = mock(RulesProfile.class);
 		this.settings = mock(Settings.class);
-		this.sensorConfiguration = new ZaproxySensorConfiguration(this.profile, this.settings);
+		this.sensorConfiguration = new ZaproxySensorConfiguration(this.settings);
 	}
 
 	@Test
