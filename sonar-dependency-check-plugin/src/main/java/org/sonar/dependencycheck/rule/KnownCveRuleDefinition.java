@@ -31,8 +31,8 @@ public class KnownCveRuleDefinition implements RulesDefinition {
 
 	@ParametersAreNonnullByDefault
 	public void define(Context context) {
-		NewRepository repo = context.createRepository(OwaspPlugin.REPOSITORY_KEY, OwaspPlugin.LANGUAGE_KEY);
-		repo.setName(OwaspPlugin.REPOSITORY_KEY);
+		NewRepository repo = context.createRepository(OwaspPlugin.REPOSITORY_DEPENDENCY_CHECK_KEY, OwaspPlugin.LANGUAGE_KEY);
+		repo.setName(OwaspPlugin.REPOSITORY_DEPENDENCY_CHECK_KEY);
 
 		NewRule rule = repo.createRule(OwaspPlugin.RULE_KEY);
 		rule.addTags("cwe-937", "cve", "security", "vulnerability");
