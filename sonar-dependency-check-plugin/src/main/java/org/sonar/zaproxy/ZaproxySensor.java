@@ -19,6 +19,8 @@
  */
 package org.sonar.zaproxy;
 
+import org.apache.commons.lang.StringUtils;
+
 import org.sonar.api.batch.Sensor;
 import org.sonar.api.batch.SensorContext;
 import org.sonar.api.batch.fs.FileSystem;
@@ -84,11 +86,31 @@ public class ZaproxySensor implements Sensor {
 		}
 	}
 	
-	// TODO improve informations show in this part
+	private String addValueToDescription(String name, String value, boolean isEnd) {
+		StringBuilder sb = new StringBuilder();
+		if( !StringUtils.isBlank(value) ) {
+			sb.append(name + ": ").append(value);
+			if(!isEnd) {
+				sb.append(" | ");
+			}
+		} 
+		return sb.toString();
+	}
+	
+	/**
+	 *      todo: Add Markdown formatting if and when Sonar supports it
+	 *      https://jira.codehaus.org/browse/SONAR-4161
+	 */
 	private String formatDescription(AlertItem alert) {
 		StringBuilder sb = new StringBuilder();
-		sb.append("URI: ").append(alert.getUri()).append(" | ");
-		sb.append(alert.getDesc());
+		
+		sb.append(addValueToDescription("URI", alert.getUri(), false));
+		sb.append(addValueToDescription("Confidence", String.valueOf(alert.getConfidence()), false));
+		sb.append(addValueToDescription("Description", alert.getDesc(), false));
+		sb.append(addValueToDescription("Param", alert.getParam(), false));
+		sb.append(addValueToDescription("Attack", alert.getAttack(), false));
+		sb.append(addValueToDescription("Evidence", alert.getEvidence(), true));
+		
 		return sb.toString();
 	}
 	
@@ -127,7 +149,7 @@ public class ZaproxySensor implements Sensor {
 				}
 				
 			} else {
-				LOGGER.warn("The rule " + OwaspPlugin.REPOSITORY_ZAPROXY_KEY + ":" +pluginid + " doesn't exist.");
+				LOGGER.warn("The rule " + OwaspPlugin.REPOSITORY_ZAPROXY_KEY + ":" + pluginid + " doesn't exist.");
 			}
 		}
 	}
