@@ -77,6 +77,30 @@ OWASP Dependency-Check is Copyright (c) Jeremy Long. All Rights Reserved.
 
 Permission to modify and redistribute is granted under the terms of the [LGPLv3] license.
 
-  [LGPLv3]: http://www.gnu.org/licenses/lgpl.txt
-  [bintray]: https://bintray.com/stevespringett/owasp/dependency-check-sonar/
-  [OWASP Dependency-Check]: https://www.owasp.org/index.php/OWASP_Dependency_Check
+[LGPLv3]: http://www.gnu.org/licenses/lgpl.txt
+[bintray]: https://bintray.com/stevespringett/owasp/dependency-check-sonar/
+[OWASP Dependency-Check]: https://www.owasp.org/index.php/OWASP_Dependency_Check
+
+
+ZAProxy Plugin for SonarQube
+=====================================
+
+Integrates [OWASP Zed Attack Proxy Project] reports into SonarQube v5.1 or higher. If components being analyzed by ZAProxy are non-source files (jar, dll, etc), then the value of sonar.import_unknown_files needs to be set to True in the SonarQube configuration.
+
+About ZAProxy
+-------------------
+
+The Zed Attack Proxy (ZAP) is an easy to use integrated penetration testing tool for finding vulnerabilities in web applications.
+It is designed to be used by people with a wide range of security experience and as such is ideal for developers and functional testers who are new to penetration testing.
+ZAP provides automated scanners as well as a set of tools that allow you to find security vulnerabilities manually.
+
+Metrics
+-------------------
+
+The plugin keeps track of a number of statistics including:
+
+* Total number of alerts found
+* Total number of high, medium, low and info severity alerts
+
+
+[OWASP Zed Attack Proxy Project]: https://www.owasp.org/index.php/OWASP_Zed_Attack_Proxy_Project
