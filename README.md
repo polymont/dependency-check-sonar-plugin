@@ -102,5 +102,21 @@ The plugin keeps track of a number of statistics including:
 * Total number of alerts found
 * Total number of high, medium, low and info severity alerts
 
+Configuration
+-------------------
+
+The value of sonar.zaproxy.reportPath=path/to/myZAPreport.xml needs to be set in SonarQube configuration to get results from this report in SonarQube.
+
+Commons configuration
+=====================================
+
+The plugin can be entirely disabled with the following SonarQube property :
+
+* sonar.owasp.enabled=false;
+
+It's also possible to disabled only a part of the sensor plugin, with the following SonarQube properties :
+
+* sonar.owasp.dependencycheck.enabled=false (to disable DependencyCheck Sensor);
+* sonar.owasp.zaproxy.enabled=false (to disable ZAProxy Sensor);
 
 [OWASP Zed Attack Proxy Project]: https://www.owasp.org/index.php/OWASP_Zed_Attack_Proxy_Project
