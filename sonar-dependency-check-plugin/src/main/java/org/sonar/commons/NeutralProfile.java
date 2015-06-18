@@ -19,7 +19,6 @@
  */
 package org.sonar.commons;
 
-//import org.sonar.api.batch.rule.Rule;
 import org.apache.commons.lang.StringUtils;
 import org.codehaus.staxmate.SMInputFactory;
 import org.codehaus.staxmate.in.SMHierarchicCursor;
