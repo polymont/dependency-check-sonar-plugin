@@ -107,13 +107,13 @@
 			<repositoryKey>OWASP-ZAPROXY</repositoryKey>
 			<key>90019</key>
 		</rule>
-		<!-- <rule>
+		<rule>
 			<repositoryKey>OWASP-ZAPROXY</repositoryKey>
 			<key>90020</key>
 		</rule>
 		<rule>
 			<repositoryKey>OWASP-ZAPROXY</repositoryKey>
 			<key>90022</key>
-		</rule> -->
+		</rule>
 	</rules>
 </profile>

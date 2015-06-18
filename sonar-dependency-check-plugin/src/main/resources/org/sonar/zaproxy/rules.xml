@@ -778,21 +778,4 @@ If you want to add a rule, you can, following the model above.
 				<tag>security</tag>
 				<tag>zaproxy</tag>
 		</rule>
-		<rule>
-				<key>99998</key>
-				<name>Test2</name>
-				
-				<description> <!-- Corresponding to "<solution>" and "<reference>" of the ZAP report -->
-		<![CDATA[<h3>Solution :</h3>
-		<p>Just for testing2</p>
-		<h3>References:</h3>
-		<ul>
-		<li><a href=""></a></li>
-		</ul>]]>
-				</description>
-				<severity>BLOCKER</severity>
-				<status>READY</status>
-				<tag>security</tag>
-				<tag>zaproxy</tag>
-		</rule>
 </rules>
