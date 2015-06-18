@@ -102,13 +102,13 @@ public class NeutralProfile extends ProfileDefinition {
 	public RulesProfile createProfile(ValidationMessages validation) {
 		
 		// To load profile's rules from a file
-		return xmlParser.parse(new InputStreamReader(
-				getClass().getResourceAsStream("/org/sonar/dependencycheck/profile.xml")), validation);
+		/*return xmlParser.parse(new InputStreamReader(
+				getClass().getResourceAsStream("/org/sonar/dependencycheck/profile.xml")), validation);*/
 		
 		// To create a neutral profile, the file "rules.xml" is covered to collect all rules's keys
 		// After that, all rules with corresponding key are enabled in the profile.
 		
-		/*RulesProfile profile = RulesProfile.create(OwaspPlugin.LANGUAGE_NAME, OwaspPlugin.LANGUAGE_KEY);
+		RulesProfile profile = RulesProfile.create(OwaspPlugin.LANGUAGE_NAME, OwaspPlugin.LANGUAGE_KEY);
 		
 		InputStream inputStream = getClass().getResourceAsStream(OwaspPlugin.RESOURCES_ZAPROXY_RULES_FILES);		
 		
@@ -124,6 +124,6 @@ public class NeutralProfile extends ProfileDefinition {
 		profile.activateRule(ruleDependencyCheck, null);
 		
 		profile.setDefaultProfile(true);
-		return profile;*/
+		return profile;
 	}
 }
