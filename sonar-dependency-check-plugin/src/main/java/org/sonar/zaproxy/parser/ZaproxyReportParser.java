@@ -19,8 +19,11 @@
  */
 package org.sonar.zaproxy.parser;
 
-import org.sonar.commons.OwaspUtils;
+import org.sonar.api.utils.log.Logger;
+import org.sonar.api.utils.log.Loggers;
+import org.sonar.commons.NeutralProfile;
 
+import org.sonar.commons.OwaspUtils;
 import org.apache.commons.lang.StringUtils;
 import org.codehaus.staxmate.SMInputFactory;
 import org.codehaus.staxmate.in.SMHierarchicCursor;
@@ -37,6 +40,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 public class ZaproxyReportParser {
+	
+	private static final Logger LOGGER = Loggers.get(ZaproxyReportParser.class);
 	
 	public OWASPZAPReport parse(InputStream inputStream) {
 		SMInputFactory inputFactory = OwaspUtils.newStaxParser();

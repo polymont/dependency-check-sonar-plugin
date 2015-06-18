@@ -19,6 +19,8 @@
  */
 package org.sonar.zaproxy.rule;
 
+import org.apache.commons.io.Charsets;
+
 import org.apache.commons.lang.StringUtils;
 import org.sonar.api.config.Settings;
 import org.sonar.api.server.rule.RulesDefinition;
@@ -54,7 +56,8 @@ public class ZaproxyRuleDefinition implements RulesDefinition {
 	}
 	
 	private void loadDefaultZAProxyRules(NewRepository repository) {
-		xmlLoader.load(repository, getClass().getResourceAsStream("/org/sonar/zaproxy/rules.xml"), "UTF-8");
+		xmlLoader.load(repository, getClass().getResourceAsStream(OwaspPlugin.RESOURCES_ZAPROXY_RULES_FILES),
+				Charsets.UTF_8);
 	}
 
 	@Override

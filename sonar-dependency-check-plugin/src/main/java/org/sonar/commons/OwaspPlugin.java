@@ -91,7 +91,9 @@ public final class OwaspPlugin extends SonarPlugin {
 	public static final String REPOSITORY_ZAPROXY_KEY = "OWASP-ZAPROXY";
 	public static final String REPOSITORY_DEPENDENCY_CHECK_KEY = "OWASP-DEPENDENCY-CHECK";
 	public static final String LANGUAGE_KEY = "neutral";
+	public static final String LANGUAGE_NAME = "Neutral";
 	public static final String RULE_KEY = "UsingComponentWithKnownVulnerability";
+	public static final String RESOURCES_ZAPROXY_RULES_FILES = "/org/sonar/zaproxy/rules.xml";
 	
 	public static final String ENABLED = "sonar.owasp.enabled";
 

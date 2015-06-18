@@ -32,7 +32,7 @@ import org.sonar.api.resources.AbstractLanguage;
 public class NeutralLanguage extends AbstractLanguage {
 
 	public NeutralLanguage() {
-		super(OwaspPlugin.LANGUAGE_KEY, "Neutral");
+		super(OwaspPlugin.LANGUAGE_KEY, OwaspPlugin.LANGUAGE_NAME);
 	}
 
 	public String[] getFileSuffixes() {
