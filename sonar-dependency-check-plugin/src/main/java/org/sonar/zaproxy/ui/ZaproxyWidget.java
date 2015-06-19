@@ -40,7 +40,7 @@ public class ZaproxyWidget extends AbstractRubyTemplate implements
 
 	@Override
 	public String getTitle() {
-		return "Known Vulnerabilities of Website";
+		return "Vulnerabilities identified by ZAProxy";
 	}
 
 	@Override
