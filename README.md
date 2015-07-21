@@ -114,3 +114,6 @@ It's also possible to disabled only a part of the sensor plugin, with the follow
 * sonar.owasp.dependencycheck.enabled=false (to disable DependencyCheck Sensor);
 * sonar.owasp.zaproxy.enabled=false (to disable ZAProxy Sensor);
 
+The parent path to the report (for dependency-check or zaproxy) must be present in sonar.sources. For example, if the report is present in path/to/myZAPreport.xml, you must define sonar.sources=path/to.
+It's also preferable to put the report in a repository and not in the root path.
+
